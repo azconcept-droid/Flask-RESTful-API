@@ -7,4 +7,16 @@ from app import app
 @app.route('/index')
 def index():
     """Default route, home page"""
-    return "Hello, World!"
+
+    user = {'username': 'Azeez'}
+
+    return '''
+<html>
+    <head>
+        <title>Home page - Microblog</title>
+    </head>
+    <body>
+        <h1>Hello, ''' + user['username'] + '''!</h1>
+    </body>
+</html>
+'''
