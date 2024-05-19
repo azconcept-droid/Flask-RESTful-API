@@ -20,26 +20,7 @@ tasks = [
     }
 ]
 
-
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
-def get_tasks():
-    """Get all tasks"""
-
-    return jsonify({'tasks': tasks})
-
-
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
-def get_task(task_id):
-    """Get a single task"""
-
-    task = [task for task in tasks if task['id'] == task_id]
-
-    if len(task) == 0:
-        abort(404)
-
-    return jsonify({'task': task[0]})
-
-
+# Create task
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
     """ Create a new task """
@@ -58,6 +39,28 @@ def create_task():
     return jsonify({'task': task}), 201
 
 
+# Read tasks
+@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+def get_tasks():
+    """Get all tasks"""
+
+    return jsonify({'tasks': tasks})
+
+
+# Read a task
+@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    """Get a single task"""
+
+    task = [task for task in tasks if task['id'] == task_id]
+
+    if len(task) == 0:
+        abort(404)
+
+    return jsonify({'task': task[0]})
+
+
+# Update a task
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     """ Modify/update task """
@@ -83,7 +86,23 @@ def update_task(task_id):
     task[0]['description'] = request.json.get('description', task[0]['description'])
     task[0]['done'] = request.json.get('done', task[0]['done'])
 
-    return jsonify({'task': task[0]})
+    return jsonify({'task': task[0], 'type': type(request.json['title'])})
+
+
+# Delete a task
+@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    """ Delete a task """
+
+    task = [task for task in tasks if task['id'] == task_id]
+
+    if len(task) == 0:
+        abort(404)
+    
+    tasks.remove(task[0])
+
+    return jsonify({'result': True})
+
 
 @app.errorhandler(404)
 def not_found(error):

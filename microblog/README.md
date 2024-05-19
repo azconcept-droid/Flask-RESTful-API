@@ -16,3 +16,5 @@ flask run
 
 Flask extentions
 - flask-wtf
+- flask-sqlalchemy
+- flask-migrate
