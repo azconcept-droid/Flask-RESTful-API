@@ -18,7 +18,14 @@ pip install python-dotenv
 
 flask run
 
-Flask extentions
+### Database migration
+flask db init
+
+flask db migrate -m "users table"
+
+flask db upgrade
+
+### Flask extentions
 - flask-wtf
 - flask-sqlalchemy
 - flask-migrate
