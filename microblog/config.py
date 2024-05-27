@@ -1,4 +1,5 @@
-"""Config module"""
+#!myvenv/bin/python3
+""" Secret key Configuration module"""
 
 import os
 

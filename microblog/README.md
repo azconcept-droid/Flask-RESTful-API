@@ -12,6 +12,10 @@ source venv/bin/activate
 
 pip install flask
 
+flask run --port 5001
+
+pip install python-dotenv
+
 flask run
 
 Flask extentions
